@@ -1,17 +1,14 @@
 package com.braze.advancedsamples.immersive
 
 import android.content.Context
-import android.net.Uri
 import android.util.AttributeSet
-import android.widget.ImageView
-import android.widget.ListView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.appboy.ui.inappmessage.views.AppboyInAppMessageFullView
 import com.braze.advancedsamples.R
+import com.braze.ui.inappmessage.views.InAppMessageFullView
 
-class CustomImmersiveInAppMessage (private val ctx:Context, attrs: AttributeSet) : AppboyInAppMessageFullView (ctx, attrs) {
+class CustomImmersiveInAppMessage (private val ctx:Context, attrs: AttributeSet) : InAppMessageFullView (ctx, attrs) {
 
     lateinit var listView: RecyclerView
     lateinit var titleView: TextView

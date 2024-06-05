@@ -9,19 +9,23 @@ import com.braze.models.inappmessage.IInAppMessage
 import com.braze.ui.inappmessage.DefaultInAppMessageViewWrapper
 import com.braze.ui.inappmessage.listeners.IInAppMessageViewLifecycleListener
 
-class CustomSlideUpInAppMessageViewWrapper(inAppMessageView: View?,
-                                           inAppMessage: IInAppMessage?,
-                                           inAppMessageViewLifecycleListener: IInAppMessageViewLifecycleListener?,
-                                           configurationProvider: BrazeConfigurationProvider?,
-                                           openingAnimation: Animation?,
-                                           closingAnimation: Animation?,
-                                           clickableInAppMessageView: View?) : DefaultInAppMessageViewWrapper(inAppMessageView,
+class CustomSlideUpInAppMessageViewWrapper(
+    inAppMessageView: View,
+    inAppMessage: IInAppMessage,
+    inAppMessageViewLifecycleListener: IInAppMessageViewLifecycleListener,
+    configurationProvider: BrazeConfigurationProvider,
+    openingAnimation: Animation?,
+    closingAnimation: Animation?,
+    clickableInAppMessageView: View?
+) : DefaultInAppMessageViewWrapper(
+    inAppMessageView,
     inAppMessage,
     inAppMessageViewLifecycleListener,
     configurationProvider,
     openingAnimation,
     closingAnimation,
-    clickableInAppMessageView) {
+    clickableInAppMessageView
+) {
 
     override fun getLayoutParams(inAppMessage: IInAppMessage?): ViewGroup.LayoutParams {
         val params = super.getLayoutParams(inAppMessage) as FrameLayout.LayoutParams

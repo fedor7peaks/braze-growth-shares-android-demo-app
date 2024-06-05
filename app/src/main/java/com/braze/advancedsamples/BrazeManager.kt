@@ -1,13 +1,11 @@
 package com.braze.advancedsamples
 
 import android.content.Context
-import com.appboy.Appboy
-import com.appboy.models.cards.BannerImageCard
-import com.appboy.models.cards.CaptionedImageCard
-import com.appboy.models.cards.Card
-import com.appboy.models.cards.ShortNewsCard
+import com.braze.Braze
 import com.braze.advancedsamples.contentcards.ContentCardableObserver
-import com.braze.advancedsamples.contentcards.model.*
+import com.braze.advancedsamples.contentcards.model.Ad
+import com.braze.advancedsamples.contentcards.model.ContentCardClass
+import com.braze.advancedsamples.contentcards.model.ContentCardable
 import com.braze.advancedsamples.contentcards.model.ContentCardable.Keys.cardDescription
 import com.braze.advancedsamples.contentcards.model.ContentCardable.Keys.classType
 import com.braze.advancedsamples.contentcards.model.ContentCardable.Keys.created
@@ -20,8 +18,17 @@ import com.braze.advancedsamples.contentcards.model.ContentCardable.Keys.message
 import com.braze.advancedsamples.contentcards.model.ContentCardable.Keys.messageTitle
 import com.braze.advancedsamples.contentcards.model.ContentCardable.Keys.title
 import com.braze.advancedsamples.contentcards.model.ContentCardable.Keys.urlString
+import com.braze.advancedsamples.contentcards.model.Coupon
+import com.braze.advancedsamples.contentcards.model.FullPageMessage
+import com.braze.advancedsamples.contentcards.model.Group
+import com.braze.advancedsamples.contentcards.model.Tile
+import com.braze.advancedsamples.contentcards.model.WebViewMessage
 import com.braze.advancedsamples.inapp.slideup.CustomInAppMessageViewWrapperFactory
 import com.braze.events.ContentCardsUpdatedEvent
+import com.braze.models.cards.ImageOnlyCard
+import com.braze.models.cards.CaptionedImageCard
+import com.braze.models.cards.Card
+import com.braze.models.cards.ShortNewsCard
 import com.braze.ui.inappmessage.BrazeInAppMessageManager
 
 
@@ -32,12 +39,12 @@ class BrazeManager private constructor(private val context: Context) {
     private var cardList: List<Card> = listOf()
 
     fun userLogin(username:String){
-        Appboy.getInstance(context).changeUser(username)
+        Braze.getInstance(context).changeUser(username)
     }
 
     fun registerForContentCardUpdates(){
         if (!registeredForContentCardUpdates){
-            Appboy.getInstance(context).subscribeToContentCardsUpdates(this::onContentCardsUpdated)
+            Braze.getInstance(context).subscribeToContentCardsUpdates(this::onContentCardsUpdated)
             registeredForContentCardUpdates = true
         }
     }
@@ -62,7 +69,7 @@ class BrazeManager private constructor(private val context: Context) {
     }
 
     fun requestContentCardUpdate(){
-        Appboy.getInstance(context).requestContentCardsRefresh(false)
+        Braze.getInstance(context).requestContentCardsRefresh(false)
     }
 
     private fun mapCardsToCardables(cards: List<Card>):List<ContentCardable>{
@@ -81,7 +88,7 @@ class BrazeManager private constructor(private val context: Context) {
                 it[messageTitle]?.let { s -> metadata[messageTitle] =  s }
             }
             when (card) {
-                is BannerImageCard -> {
+                is ImageOnlyCard -> {
                     metadata[image] = card.imageUrl
                 }
                 is CaptionedImageCard -> {
@@ -90,7 +97,7 @@ class BrazeManager private constructor(private val context: Context) {
                     metadata[cardDescription] = card.description
                 }
                 is ShortNewsCard -> {
-                    metadata[title] = card.title
+                    metadata[title] = card.title.orEmpty()
                     metadata[cardDescription] = card.description
                     metadata[image] = card.imageUrl
                 }
@@ -121,7 +128,7 @@ class BrazeManager private constructor(private val context: Context) {
     }
 
     fun logCustomEvent(evt:String){
-        Appboy.getInstance(context).logCustomEvent(evt)
+        Braze.getInstance(context).logCustomEvent(evt)
     }
 
     fun logContentCardClicked(idString: String?) {
@@ -133,7 +140,7 @@ class BrazeManager private constructor(private val context: Context) {
     }
 
     fun logContentCardDismissed(idString: String?) {
-        getContentCard(idString)?.setIsDismissed(true)
+        getContentCard(idString)?.isDismissed = true
     }
 
 

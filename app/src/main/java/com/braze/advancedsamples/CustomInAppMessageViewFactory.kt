@@ -21,14 +21,14 @@ class CustomInAppMessageViewFactory : IInAppMessageViewFactory {
                 //Defer to default
                 BrazeInAppMessageManager
                     .getInstance()
-                    .getDefaultInAppMessageViewFactory(inAppMessage).createInAppMessageView(activity, inAppMessage)
+                    .getDefaultInAppMessageViewFactory(inAppMessage)!!.createInAppMessageView(activity, inAppMessage)!!
             }
         }
     }
 
     private fun getCustomImmersiveView(activity: Activity, inAppMessage: IInAppMessage): CustomImmersiveInAppMessage{
         val view = activity.layoutInflater.inflate(R.layout.full_screen_iam, null) as CustomImmersiveInAppMessage
-        val options = inAppMessage.message.split(",")
+        val options = inAppMessage.message!!.split(",")
         view.setOptions(options)
         inAppMessage.extras?.get("title").let { view.setTitle(it) }
         inAppMessage.extras?.get("subtitle").let {view.setSubtitle(it) }
@@ -37,7 +37,7 @@ class CustomInAppMessageViewFactory : IInAppMessageViewFactory {
 
     private fun getCustomPickerView(activity: Activity, inAppMessage: IInAppMessage): TeamPickerView {
         val view = activity.layoutInflater.inflate(R.layout.team_picker_dialog, null) as TeamPickerView
-        val teams = inAppMessage.message.split(",")
+        val teams = inAppMessage.message!!.split(",")
         view.setTeams(teams)
         return view
     }

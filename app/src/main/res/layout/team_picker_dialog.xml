@@ -8,7 +8,7 @@
     <RelativeLayout
             android:id="@+id/com_appboy_inappmessage_modal_frame"
             style="@style/Braze.InAppMessage.Frame.Modal"/>
-    <com.appboy.ui.inappmessage.views.AppboyInAppMessageBoundedLayout
+    <com.braze.ui.inappmessage.views.InAppMessageBoundedLayout
             android:id="@+id/com_appboy_inappmessage_modal"
             style="@style/Braze.InAppMessage.Modal">
         <LinearLayout
@@ -55,6 +55,6 @@
                 android:id="@+id/com_appboy_inappmessage_modal_close_button"
                 style="@style/Braze.InAppMessage.CloseButton.Modal"
                 tools:ignore="ContentDescription"/>
-    </com.appboy.ui.inappmessage.views.AppboyInAppMessageBoundedLayout>
+    </com.braze.ui.inappmessage.views.InAppMessageBoundedLayout>
 
 </com.braze.advancedsamples.inapp.modal.TeamPickerView>

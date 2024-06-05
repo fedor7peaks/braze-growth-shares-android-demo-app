@@ -2,16 +2,13 @@ package com.braze.advancedsamples.inapp.modal
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.widget.*
-import android.widget.Toast.makeText
-import com.appboy.Appboy
-import com.appboy.ui.inappmessage.views.AppboyInAppMessageModalView
-import com.braze.BrazeUser
+import com.braze.Braze
 import com.braze.advancedsamples.R
+import com.braze.ui.inappmessage.views.InAppMessageModalView
 
-class TeamPickerView(private val ctx: Context, attrs:AttributeSet): AppboyInAppMessageModalView(ctx, attrs), View.OnClickListener {
+class TeamPickerView(private val ctx: Context, attrs:AttributeSet): InAppMessageModalView(ctx, attrs), View.OnClickListener {
 
     lateinit var cancelBtn: Button
     lateinit var selectBtn: Button
@@ -38,8 +35,8 @@ class TeamPickerView(private val ctx: Context, attrs:AttributeSet): AppboyInAppM
 
     override fun onClick(v: View?) {
         val selectedTeam = spinner.selectedItem as String;
-        Appboy.getInstance(ctx).currentUser?.setCustomUserAttribute("FavoriteTeam", selectedTeam)
-        messageClickableView.performClick()
+        Braze.getInstance(ctx).currentUser?.setCustomUserAttribute("FavoriteTeam", selectedTeam)
+        messageClickableView?.performClick()
     }
 
 

@@ -4,11 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Spinner
 import android.widget.Switch
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.appboy.Appboy
+import com.braze.Braze
 import com.braze.advancedsamples.R
 import com.braze.models.outgoing.BrazeProperties
 
@@ -17,7 +16,7 @@ class OptionAdapter(private val ctx: Context, private val options:List<String>):
     private val mInflater:LayoutInflater = LayoutInflater.from(ctx)
 
     fun logClick(value:String, checked:Boolean){
-        Appboy.getInstance(ctx).logCustomEvent("SwitchChanged", BrazeProperties())
+        Braze.getInstance(ctx).logCustomEvent("SwitchChanged", BrazeProperties())
     }
 
     inner class OptionViewHolder(item: View): RecyclerView.ViewHolder(item), View.OnClickListener{
